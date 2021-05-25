@@ -5,6 +5,7 @@ export default function Pagination({
   resultsPerPageCount,
   totalResultsCount
 }) {
+  pageNumber = 2;
   return (
     <div className={styles.container}>
       <Button name="prev">Previous</Button>
@@ -18,11 +19,16 @@ export default function Pagination({
 }
 function getPaginationLabel(pageNumber, resultsPerPageCount, resultsCount) {
   const isFirstPage = pageNumber === 1;
-  if (isFirstPage) {
-    return (
-      <p>
-        <strong>1</strong> - <strong>{resultsPerPageCount}</strong>
-      </p>
-    );
-  }
+  const getLabel = () => {
+    if (isFirstPage) {
+      return { pageFrom: pageNumber, pageTo: resultsPerPageCount };
+    }
+    return { pageFrom: pageNumber, pageTo: 0 };
+  };
+  const label = getLabel();
+  return (
+    <p>
+      <strong>{label.pageFrom}</strong> - <strong>{label.pageTo}</strong>
+    </p>
+  );
 }
