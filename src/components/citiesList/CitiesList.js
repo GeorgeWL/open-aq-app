@@ -34,8 +34,8 @@ function CitiesList({
         ))}
       </ul>
       <Pagination
-        pageNumber={pageNumber}
-        resultsPerPageCount={limit}
+        pageNumber={citiesList?.length > 0 ? pageNumber : 0}
+        resultsPerPageCount={citiesList?.length > 0 ? limit : 0}
         totalResultsCount={totalResultsCount}
       />
     </div>
