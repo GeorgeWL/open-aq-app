@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CitiesList } from "./components/CitiesList";
+import CitiesList from "./components/citiesList/CitiesList";
 import DateInput from "./components/generic/DateInput";
 import "./styles.css";
 const NAME_DATE_FROM = "dateFrom";
@@ -20,16 +20,19 @@ export default function App() {
         break;
     }
   }
-  console.log({ dateFrom, dateTo });
   return (
-    <div className="App">
+    <main className="App">
       <h1>Hello CodeSandbox</h1>
       <h2>Start editing to see some magic happen!</h2>
       <label htmlFor={NAME_DATE_FROM}>From:</label>
       <DateInput name="dateFrom" onChange={handleInputChange} />
       <label htmlFor={NAME_DATE_FROM}>To:</label>
       <DateInput name="dateTo" onChange={handleInputChange} />
-      <CitiesList />
-    </div>
+      <CitiesList
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        onClickItem={handleInputChange}
+      />
+    </main>
   );
 }
