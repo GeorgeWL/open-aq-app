@@ -22,8 +22,8 @@ export default function App() {
   }
   return (
     <main className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <h1>Air Cleanliness</h1>
+      <h2>Great Britain</h2>
       <label htmlFor={NAME_DATE_FROM}>From:</label>
       <DateInput name="dateFrom" onChange={handleInputChange} />
       <label htmlFor={NAME_DATE_FROM}>To:</label>
