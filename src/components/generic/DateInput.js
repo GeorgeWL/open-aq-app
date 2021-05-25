@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Input from "./input";
+import Input from "./Input";
 export function DateInput({ name, placeholder = "dd/mm/yyyy", onChange }) {
   return (
     <Input
@@ -11,9 +11,8 @@ export function DateInput({ name, placeholder = "dd/mm/yyyy", onChange }) {
   );
 }
 DateInput.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
   onChange: PropTypes.func,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string
 };
 export default DateInput;
