@@ -8,7 +8,6 @@ import {
 import styles from "../../styles/citiesList.module.scss";
 import Label from "../generic/Label";
 import NumberInput from "../generic/NumberInput";
-import Select from "../generic/Select";
 import Pagination from "../Pagination";
 import CitiesListItem from "./CitiesListItem";
 
@@ -55,11 +54,8 @@ export default function CitiesList() {
           onChange={handleInput}
         />
       </div>
-      <div>
-        <Label id="sort">Sort</Label>
-        <Select options={[{ key: "asc", label: "ascending" }]} />
-      </div>
       <ul className={styles.list}>
+        {/* TODO: Add a loading spinner */}
         {citiesList?.map((city) => (
           <CitiesListItem
             city={city}

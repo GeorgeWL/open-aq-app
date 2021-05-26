@@ -25,8 +25,11 @@ export async function fetchMeasurementsForCity(city, options) {
     sort: "asc"
   };
   const query = queryString.stringify(options);
-  const apiPath = `${ROOT_URL}${MEASUREMENTS_PATH.replace("CITY", city)}${
-    options.page || options.limit ? "&" + query : ""
-  }`;
+
+  const apiPath = `${ROOT_URL}${MEASUREMENTS_PATH.replace(
+    "CITY",
+    encodeURIComponent(city)
+  )}${options.page || options.limit ? "&" + query : ""}`;
+
   return await fetchHandler(apiPath);
 }

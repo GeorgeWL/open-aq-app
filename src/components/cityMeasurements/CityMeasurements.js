@@ -8,6 +8,7 @@ import {
 import Label from "../generic/Label";
 import NumberInput from "../generic/NumberInput";
 import Pagination from "../Pagination";
+import styles from "../../styles/cityMeasurements.module.scss";
 const MAP_URL = "https://www.openstreetmap.org/#map=18/LAT/LONG";
 export default function CityMeasurements() {
   let { cityName } = useParams();
@@ -55,8 +56,8 @@ export default function CityMeasurements() {
           onChange={handleInput}
         />
       </div>
-      {/* I would export this table, but don't wanna spend the time to right now */}
-      <table style={{ width: "100%" }}>
+      {/* TODO: export this table, don't wanna spend the time to right now */}
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Date</th>
@@ -67,6 +68,7 @@ export default function CityMeasurements() {
           </tr>
         </thead>
         <tbody>
+          {/* TODO: Add a loading spinner */}
           {measurementData.map((dataPoint) => {
             const mapLink = MAP_URL.replace(
               "LAT",
