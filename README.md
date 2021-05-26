@@ -1,2 +1,2 @@
 # open-aq-app
-Created with CodeSandbox
+Scaffolded with CodeSandbox
