@@ -12,7 +12,7 @@ export default function App() {
           <Route path="/">
             <CitiesList />
           </Route>
-          <Route path="/city/:cityName">
+          <Route path="/measurements/:cityName">
             <CityMeasurements />
           </Route>
         </Switch>

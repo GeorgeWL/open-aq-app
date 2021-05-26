@@ -3,10 +3,12 @@ const ROOT_URL = "https://api.openaq.org/v1/";
 const CITIES_PATH = `cities?country=GB`;
 const MEASUREMENTS_PATH = "measurements?country=GB&city=CITY";
 export async function fetchCitiesList(options) {
-  const query = queryString.parse(options);
-  const apiPath = `${ROOT_URL}${CITIES_PATH}`;
-  console.log({ apiPath, query });
-  return await fetchHandler(ROOT_URL + CITIES_PATH);
+  const query = queryString.stringify(options);
+  const apiPath = `${ROOT_URL}${CITIES_PATH}${
+    options.page || options.limit ? "&" + query : ""
+  }`;
+  console.log(apiPath, query, options);
+  return await fetchHandler(apiPath);
 }
 async function fetchHandler(url) {
   const response = await fetch(url);
@@ -16,6 +18,7 @@ async function fetchHandler(url) {
   }
   return json;
 }
-export async function fetchMeasurementsForCity(city) {
+export async function fetchMeasurementsForCity(city, options) {
+  const query = queryString.stringify(options);
   return await fetchHandler(ROOT_URL + MEASUREMENTS_PATH.replace("CITY", city));
 }

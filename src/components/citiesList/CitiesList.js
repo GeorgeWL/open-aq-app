@@ -4,13 +4,15 @@ import { fetchCitiesList } from "../../api/apiHelper";
 import Pagination from "../Pagination";
 import CitiesListItem from "./CitiesListItem";
 import styles from "../../styles/citiesList.module.scss";
+import { useHistory } from "react-router-dom";
 // two options, fetch only when list is active component,
 // or fetch on app load regardless of if used, I've went for fetch if component visible
-function CitiesList({ pageNumber = 1, onClickItem }) {
+function CitiesList() {
+  let history = useHistory();
   const [citiesList, setCitiesList] = useState([]);
   const [totalResultsCount, setTotalResultsCount] = useState(0);
   const [resultsPerPage, setResultsPerPage] = useState(20);
-
+  const [pageNumber, setPageNumber] = useState(1);
   function handlePaginateClick(params) {}
   useEffect(() => {
     if (citiesList?.length <= 0) {
@@ -28,7 +30,14 @@ function CitiesList({ pageNumber = 1, onClickItem }) {
     <div>
       <ul className={styles.list}>
         {citiesList?.map((city) => (
-          <CitiesListItem city={city} onClick={onClickItem} key={city.name} />
+          <CitiesListItem
+            city={city}
+            onClick={(name) => {
+              history.push(name);
+              console.log(name);
+            }}
+            key={city.name}
+          />
         ))}
       </ul>
       <Pagination
