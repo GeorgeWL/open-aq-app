@@ -6,18 +6,15 @@ import CitiesListItem from "./CitiesListItem";
 import styles from "../../styles/citiesList.module.scss";
 // two options, fetch only when list is active component,
 // or fetch on app load regardless of if used, I've went for fetch if component visible
-function CitiesList({
-  pageNumber = 1,
-  limit = 10,
-  dateFrom,
-  dateTo,
-  onClickItem
-}) {
+function CitiesList({ pageNumber = 1, onClickItem }) {
   const [citiesList, setCitiesList] = useState([]);
   const [totalResultsCount, setTotalResultsCount] = useState(0);
+  const [resultsPerPage, setResultsPerPage] = useState(20);
+
+  function handlePaginateClick(params) {}
   useEffect(() => {
     if (citiesList?.length <= 0) {
-      const options = { pageNumber, limit, dateFrom, dateTo };
+      const options = { page: pageNumber, limit: resultsPerPage };
       fetchCitiesList(options)
         .then((data) => {
           setCitiesList(data.results);
@@ -25,7 +22,8 @@ function CitiesList({
         })
         .catch((err) => err.message);
     }
-  }, [citiesList, pageNumber, limit, dateFrom, dateTo]);
+  }, [citiesList, pageNumber, resultsPerPage]);
+
   return (
     <div>
       <ul className={styles.list}>
@@ -35,17 +33,15 @@ function CitiesList({
       </ul>
       <Pagination
         pageNumber={citiesList?.length > 0 ? pageNumber : 0}
-        resultsPerPageCount={citiesList?.length > 0 ? limit : 0}
+        resultsPerPageCount={citiesList?.length > 0 ? resultsPerPage : 0}
         totalResultsCount={totalResultsCount}
+        onClickPaginate={handlePaginateClick}
       />
     </div>
   );
 }
 CitiesList.propTypes = {
-  pageNumber: PropTypes.number,
-  limit: PropTypes.number,
   dateFrom: PropTypes.string,
-  dateTo: PropTypes.string,
-  onClickItem: PropTypes.func.isRequired
+  dateTo: PropTypes.string
 };
 export default CitiesList;

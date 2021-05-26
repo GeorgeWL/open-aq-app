@@ -1,14 +1,18 @@
+import queryString from "query-string";
 const ROOT_URL = "https://api.openaq.org/v1/";
 const CITIES_PATH = `cities?country=GB`;
 const MEASUREMENTS_PATH = "measurements?country=GB&city=CITY";
-export async function fetchCitiesList() {
+export async function fetchCitiesList(options) {
+  const query = queryString.parse(options);
+  const apiPath = `${ROOT_URL}${CITIES_PATH}`;
+  console.log({ apiPath, query });
   return await fetchHandler(ROOT_URL + CITIES_PATH);
 }
 async function fetchHandler(url) {
   const response = await fetch(url);
   const json = await response.json();
   if (!response.ok) {
-    throw new Error(`Error ${response.status}`);
+    throw new Error(`Error: ${response.status} ${response?.statusText}`);
   }
   return json;
 }
