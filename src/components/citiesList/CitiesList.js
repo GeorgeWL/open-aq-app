@@ -5,29 +5,48 @@ import Pagination from "../Pagination";
 import CitiesListItem from "./CitiesListItem";
 import styles from "../../styles/citiesList.module.scss";
 import { useHistory } from "react-router-dom";
+import NumberInput from "../generic/NumberInput";
+import {
+  canPaginateBack,
+  canPaginateForward
+} from "../../helpers/paginateHelper";
 // two options, fetch only when list is active component,
 // or fetch on app load regardless of if used, I've went for fetch if component visible
 function CitiesList() {
   let history = useHistory();
   const [citiesList, setCitiesList] = useState([]);
   const [totalResultsCount, setTotalResultsCount] = useState(0);
-  const [resultsPerPage, setResultsPerPage] = useState(20);
+  const [resultsPerPage, setResultsPerPage] = useState(25);
   const [pageNumber, setPageNumber] = useState(1);
-  function handlePaginateClick(params) {}
-  useEffect(() => {
-    if (citiesList?.length <= 0) {
-      const options = { page: pageNumber, limit: resultsPerPage };
-      fetchCitiesList(options)
-        .then((data) => {
-          setCitiesList(data.results);
-          setTotalResultsCount(data.meta.found);
-        })
-        .catch((err) => err.message);
+  function handleInput(name, value) {
+    if (name === "limit") {
+      setResultsPerPage(value);
     }
-  }, [citiesList, pageNumber, resultsPerPage]);
+  }
+  function handlePaginateClick({ target: { name } }) {
+    if (name === "prev" && canPaginateBack(pageNumber)) {
+      setPageNumber((prevState) => prevState - 1);
+    } else if (
+      name === "next" &&
+      canPaginateForward(pageNumber, resultsPerPage, totalResultsCount)
+    ) {
+      setPageNumber((prevState) => prevState + 1);
+    }
+  }
+  useEffect(() => {
+    const options = { page: pageNumber, limit: resultsPerPage };
+    fetchCitiesList(options)
+      .then((data) => {
+        setCitiesList(data.results);
+        setTotalResultsCount(data.meta.found);
+      })
+      .catch((err) => err.message);
+  }, [pageNumber, resultsPerPage]);
 
   return (
     <div>
+      <label htmlFor="limit">Results Per Page</label>
+      <NumberInput name="limit" value={resultsPerPage} onChange={handleInput} />
       <ul className={styles.list}>
         {citiesList?.map((city) => (
           <CitiesListItem

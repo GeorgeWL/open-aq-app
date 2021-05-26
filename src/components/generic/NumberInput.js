@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import Input from "./Input";
-function NumberInput({ min = 1, max = 100, step = 1, onChange, name }) {
+function NumberInput({ min = 1, max = 100, step = 1, onChange, value, name }) {
   return (
     <Input
       type="number"
       min={min}
       max={max}
+      value={value}
       step={step}
       onChange={onChange}
       name={name}
