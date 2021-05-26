@@ -9,7 +9,7 @@ export default function App() {
         <h1>Air Cleanliness</h1>
         <h2>Great Britain</h2>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <CitiesList />
           </Route>
           <Route path="/measurements/:cityName">

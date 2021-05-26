@@ -7,7 +7,6 @@ export async function fetchCitiesList(options) {
   const apiPath = `${ROOT_URL}${CITIES_PATH}${
     options.page || options.limit ? "&" + query : ""
   }`;
-  console.log(apiPath, query, options);
   return await fetchHandler(apiPath);
 }
 async function fetchHandler(url) {
@@ -20,5 +19,8 @@ async function fetchHandler(url) {
 }
 export async function fetchMeasurementsForCity(city, options) {
   const query = queryString.stringify(options);
-  return await fetchHandler(ROOT_URL + MEASUREMENTS_PATH.replace("CITY", city));
+  const apiPath = `${ROOT_URL}${MEASUREMENTS_PATH.replace("CITY", city)}${
+    options.page || options.limit ? "&" + query : ""
+  }`;
+  return await fetchHandler(apiPath);
 }

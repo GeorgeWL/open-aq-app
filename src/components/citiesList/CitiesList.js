@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { fetchCitiesList } from "../../api/apiHelper";
-import Pagination from "../Pagination";
-import CitiesListItem from "./CitiesListItem";
-import styles from "../../styles/citiesList.module.scss";
 import { useHistory } from "react-router-dom";
-import NumberInput from "../generic/NumberInput";
+import { fetchCitiesList } from "../../api/apiHelper";
 import {
   canPaginateBack,
   canPaginateForward
 } from "../../helpers/paginateHelper";
+import styles from "../../styles/citiesList.module.scss";
+import Label from "../generic/Label";
+import NumberInput from "../generic/NumberInput";
+import Select from "../generic/Select";
+import Pagination from "../Pagination";
+import CitiesListItem from "./CitiesListItem";
 // two options, fetch only when list is active component,
 // or fetch on app load regardless of if used, I've went for fetch if component visible
-function CitiesList() {
+export default function CitiesList() {
   let history = useHistory();
   const [citiesList, setCitiesList] = useState([]);
   const [totalResultsCount, setTotalResultsCount] = useState(0);
@@ -20,6 +21,7 @@ function CitiesList() {
   const [pageNumber, setPageNumber] = useState(1);
   function handleInput(name, value) {
     if (name === "limit") {
+      setPageNumber(1);
       setResultsPerPage(value);
     }
   }
@@ -45,15 +47,26 @@ function CitiesList() {
 
   return (
     <div>
-      <label htmlFor="limit">Results Per Page</label>
-      <NumberInput name="limit" value={resultsPerPage} onChange={handleInput} />
+      <h3>Choose a City for details on Pollutant levels</h3>
+      <div>
+        <Label id="limit">Results Per Page</Label>
+        <NumberInput
+          name="limit"
+          value={resultsPerPage}
+          onChange={handleInput}
+        />
+      </div>
+      <div>
+        <Label id="sort">Sort</Label>
+        <Select options={[{ key: "asc", label: "ascending" }]} />
+      </div>
       <ul className={styles.list}>
         {citiesList?.map((city) => (
           <CitiesListItem
             city={city}
             onClick={(name) => {
-              history.push(name);
-              console.log(name);
+              history.push(`/measurements/${name}`);
+              console.log(`/measurements/${name}`);
             }}
             key={city.name}
           />
@@ -68,8 +81,3 @@ function CitiesList() {
     </div>
   );
 }
-CitiesList.propTypes = {
-  dateFrom: PropTypes.string,
-  dateTo: PropTypes.string
-};
-export default CitiesList;
