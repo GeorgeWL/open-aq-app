@@ -3,16 +3,21 @@ import Button from "./generic/Button";
 export default function Pagination({
   pageNumber,
   resultsPerPageCount,
-  totalResultsCount
+  totalResultsCount,
+  onClickPaginate
 }) {
   return (
     <div className={styles.container}>
-      <Button name="prev">Previous</Button>
+      <Button name="prev" onClick={onClickPaginate}>
+        Previous
+      </Button>
       {getPaginationLabel(pageNumber, resultsPerPageCount, totalResultsCount)}
       <p>
         of <strong>{totalResultsCount}</strong>
       </p>
-      <Button name="next">Next</Button>
+      <Button name="next" onClick={onClickPaginate}>
+        Next
+      </Button>
     </div>
   );
 }
