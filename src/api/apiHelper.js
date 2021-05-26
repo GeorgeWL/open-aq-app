@@ -18,6 +18,12 @@ async function fetchHandler(url) {
   return json;
 }
 export async function fetchMeasurementsForCity(city, options) {
+  options = {
+    ...options,
+    parameters: ["o3"],
+    orderBy: "location",
+    sort: "asc"
+  };
   const query = queryString.stringify(options);
   const apiPath = `${ROOT_URL}${MEASUREMENTS_PATH.replace("CITY", city)}${
     options.page || options.limit ? "&" + query : ""

@@ -11,8 +11,7 @@ import NumberInput from "../generic/NumberInput";
 import Select from "../generic/Select";
 import Pagination from "../Pagination";
 import CitiesListItem from "./CitiesListItem";
-// two options, fetch only when list is active component,
-// or fetch on app load regardless of if used, I've went for fetch if component visible
+
 export default function CitiesList() {
   let history = useHistory();
   const [citiesList, setCitiesList] = useState([]);
