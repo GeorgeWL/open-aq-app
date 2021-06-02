@@ -5,4 +5,7 @@
   list-style: none;
   grid-column-gap: 10px;
   margin-bottom: 70px;
+   @media (max-width:800px) {
+    margin-bottom: 120px;
+  }
 }

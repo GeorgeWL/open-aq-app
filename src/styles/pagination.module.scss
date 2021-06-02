@@ -7,8 +7,9 @@
   position: fixed;
   top: calc(100vh - 70px);
   background: white;
-  padding: 20px;
+  padding: 20px 0;
   @media (max-width:800px) {
+    top: calc(100vh - 120px);
     flex-direction: column;
   }
 }
